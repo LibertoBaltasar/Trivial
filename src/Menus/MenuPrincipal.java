@@ -2,10 +2,12 @@ package Menus;
 
 import Utils.Constantes;
 
+import java.util.Scanner;
+
 public class MenuPrincipal implements MenusInterfaz {
 
     @Override
-    public void iniciarMenu() {
+    public void iniciarMenu( Scanner teclado) {
         int opcion=0;
         while(opcion!=5){
             try {
@@ -14,11 +16,12 @@ public class MenuPrincipal implements MenusInterfaz {
                 System.out.println("3.-Histórico");
                 System.out.println("4.-Jugadores");
                 System.out.println("5.-Salir");
+                opcion=teclado.nextInt();
                 // TODO: 25/04/2024 añadir teclado
                 if (opcion < 1 && opcion > 5) {
                     System.out.println("introduce un valor entre los especificados");
                 } else {
-                    MenuPrincipal.elegirOpcion(opcion);
+                    this.elegirOpcion(opcion, teclado);
                 }
             }catch (Exception){
 
@@ -27,11 +30,13 @@ public class MenuPrincipal implements MenusInterfaz {
             }
         }
     }
-    public void elegirOpcion(int opcion){
+    public void elegirOpcion(int opcion, Scanner teclado){
+        MenusInterfaz menu;
         switch(opcion){
             case 1:
                 System.out.println(Constantes.mensajeSeleccionPartida);
-                PartidaMenu.iniciarMenu;
+                menu =new PartidaMenu();
+                menu.iniciarMenu(teclado);
                 break;
             case 2:
                 System.out.println(Constantes.mensajeSeleccionRanking);
@@ -43,7 +48,9 @@ public class MenuPrincipal implements MenusInterfaz {
                 break;
             case 4:
                 System.out.println(Constantes.mensajeSeleccionJugadores);
-                JugadoresMenu.iniciarMenu;
+                menu=new GestionJugadores();
+                menu.iniciarMenu(teclado);
+                break;
             case 5:
                 System.out.println(Constantes.mensajeSeleccionSalir);
                 break;
